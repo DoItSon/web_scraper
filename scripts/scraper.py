@@ -7,7 +7,7 @@ import telegram
 # import telegram_info as ti django-extension 설치 하기 전
 # from . import telegram_info as ti django-extension 설치 하기 후
 from hotdeal.models import Deal
-import env_info as ti # 루트 변경
+import env_info as ti # 루트 변경ㄴ
 
 TLGM_BOT_API = ti.TLGM_BOT_API
 tlgm_bot = telegram.Bot(TLGM_BOT_API)
