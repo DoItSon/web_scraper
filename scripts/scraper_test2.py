@@ -1,3 +1,5 @@
+# 웹 스크래핑 보드
+# 텔레그램 push
 import requests
 from bs4 import BeautifulSoup
 import telegram

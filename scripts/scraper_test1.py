@@ -1,3 +1,4 @@
+# 웹 스크래핑 보드
 import requests
 from bs4 import BeautifulSoup
 # https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu  <크롤링할 사이트 [뽐뿌]>
