@@ -11,7 +11,7 @@ import env_info as ti # 루트 변경
 from datetime import datetime, timedelta
 
 # db 테이블 데이터 유지가간 설정 변수
-during_date = 1
+during_date = 3
 
 # DB 테이블 저장을 위한 추천 갯수 지정
 up_cnt_limit = 3
