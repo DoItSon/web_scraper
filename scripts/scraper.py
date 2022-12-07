@@ -7,7 +7,14 @@ import telegram
 # import telegram_info as ti django-extension 설치 하기 전
 # from . import telegram_info as ti django-extension 설치 하기 후
 from hotdeal.models import Deal
-import env_info as ti # 루트 변경ㄴ
+import env_info as ti # 루트 변경
+from datetime import datetime, timedelta
+
+# db 테이블 데이터 유지가간 설정 변수
+during_date = 1
+
+# DB 테이블 저장을 위한 추천 갯수 지정
+up_cnt_limit = 3
 
 TLGM_BOT_API = ti.TLGM_BOT_API
 tlgm_bot = telegram.Bot(TLGM_BOT_API)
@@ -23,6 +30,10 @@ soup = BeautifulSoup(res.text ,"html.parser") # text로 받은 결과를 html로
     # print(items)
 
 def run():
+    # DB 테이블에 3일치만 유지함
+    # row, _ = Deal.objects.filter(cdate__lte=datetime.now() - timedelta(day=3)).delete()
+    row, _ = Deal.objects.filter(cdate__lte=datetime.now() - timedelta(minutes=during_date)).delete()
+    print( row, "deals deleted")
     items = soup.select("tr.list1,tr.list0")
     # img url, title, link, replay_count, up_count
     for item in items:
@@ -40,7 +51,7 @@ def run():
             up_count = item.select("td.eng.list_vspace")[-2].text.strip()
             up_count = up_count.split("-")[0]
             up_count = int(up_count)
-            if up_count >=3:
+            if up_count >= up_cnt_limit:
                 db_link_cnt = Deal.objects.filter(link__iexact=link).count()
                 
                 # 텔레그램 봇으로 push
@@ -60,3 +71,4 @@ def run():
                 
         except Exception as e :
             continue
+
